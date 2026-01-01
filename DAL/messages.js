@@ -7,7 +7,7 @@ async function addMessages(obj = {}) {
 
 
     try {
-        const { error } = await supabase
+        const { data, error } = await supabase
             .from('messages')
             .insert(obj)
             .select()
@@ -15,23 +15,10 @@ async function addMessages(obj = {}) {
 
             return error
         }
-        
+        else{
+            return data[0]
+        }
       
-    } catch (error) {
-        return error
-
-    }
-}
-
-
-async function getMessages() {
-    try {
-        const { data, error } = await supabase
-            .from('messages')
-            .select('*')
-            .single()
-        if (error) throw error
-        return data[0]
     } catch (error) {
         return error
 
@@ -40,5 +27,5 @@ async function getMessages() {
 
 export {
     addMessages,
-    getMessages
+    
 }
